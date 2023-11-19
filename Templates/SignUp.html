@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+
+    <style type="text/css">
+        body{
+            background-image: linear-gradient(#473E66, #BD83B8,#F5D7DB);
+            height: 100vh;
+            font-family: "Helvetica","sans-serif";
+            font-weight: bold;  
+        }
+        .form{
+        height: 450px;
+        width: 600px;
+        Position: absolute;
+        top: 50%;
+        left: 50%;
+        transform:  translate(-50%,-50%);
+        border-radius: 20px;
+        background-image: linear-gradient(#294D61, SteelBlue);
+        border-style: solid;
+        color: black;
+        align-items:baseline;
+        padding: 20px;
+       } 
+       legend{
+        text-align: center;
+        font-size: 30px;
+        margin-bottom: 2%;
+        
+       }
+
+       fieldset {
+        border: none;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        }
+
+       .input{
+        height: 35px;
+        width: 60%;
+        background-color: ghostwhite;
+        border-radius: 8px;
+        display: grid;
+        align-self: center;
+        
+        }
+       .label{
+        font-size: large;
+        font-weight: bold;
+        margin-left: 19.5%;
+        margin-top: 8px;
+       }
+
+       .signup{
+        height: 50px;
+        width: 200px;
+        border-radius: 15px;
+        margin: 15px;
+        display: grid;
+        align-self: center;
+        background-image: linear-gradient(lightgrey, WhiteSmoke, white);
+       }
+       .signup:hover{
+            border: 4px solid;
+       }
+       .redirect{
+            color:black;
+            font-size: 15px;
+            text-align: center;
+        }
+        
+        .error {
+            font-size: 11px;
+            color: rgb(240, 94, 94);
+            margin-left: 20%;
+        }
+        .message{
+            font-size: 20px;
+            color: red;
+        }
+
+    </style>
+</head>
+
+<body>
+    
+    <div class="message" align="center">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p> {{message}} </p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+    <form method="POST" class="form">
+        {{ form.hidden_tag() }} 
+        <legend>Sign Up</legend>
+        <fieldset>
+            {{ form.username.label(class="label")}}
+            {{ form.username(class="input")}}
+
+            {{ form.email.label(class="label")}}
+            {% if form.email.errors %}
+                {{ form.email(class="input")}}
+
+                    {% for error in form.email.errors %}
+                        <span class="error"> {{ error }} </span>
+                    {% endfor %}
+
+            {% else %}
+                {{ form.email(class="input")}}
+            {% endif %}
+
+
+            {{ form.password.label(class="label")}}
+            {{ form.password(class="input")}}
+
+            {{ form.confirm_password.label(class="label")}}
+            {% if form.confirm_password.errors %}
+                {{ form.confirm_password(class="input")}}
+
+                    {% for error in form.confirm_password.errors %}
+                        <span class="error"> {{ error }} </span>
+                    {% endfor %}
+
+            {% else %}
+                {{ form.confirm_password(class="input")}}
+            {% endif %}
+
+
+            {{ form.submit(class="signup")}}
+            
+            <small class="redirect">Back to <a href="{{url_for('Login')}}" class="redirect">Log In</a></small>
+        </fieldset> 
+    </form>
+
+
+</body>
+</html>

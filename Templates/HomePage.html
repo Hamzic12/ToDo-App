@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style type="text/css">
+        h1{
+            font-size: 50px;
+            text-align: center;
+        }
+        body{
+            background-image: linear-gradient(#473E66, #BD83B8,#F5D7DB);
+            height: 100vh;
+            font-family: "Helvetica","sans-serif";
+            font-weight: bold;
+        }
+        a{
+            text-decoration: none;
+        }
+        button{
+            height: 70px;
+            width: 250px;
+            border-radius: 15px;
+            background-image: linear-gradient(180deg, lightgrey, WhiteSmoke, white);
+            margin: 5px;
+            font-size: 25px;
+            font-weight: bold;
+        }
+        button:hover{
+            border: 4px solid;
+        }
+        .buttons{
+            display: flex;
+            flex-direction: column;
+            Position: absolute;
+            top: 50%;
+            left: 50%;
+            transform:  translate(-50%,-50%);
+        }
+
+        .message{
+            font-size: 20px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Welcome to my ToDo app</h1>
+    <div class="message"> 
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p> {{message}} </p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <div class="buttons">
+        <a href="{{url_for('Login')}}"> <button>Log In</button> </a> 
+        <a href="{{url_for('Signup')}}"> <button>Sign Up</button> </a>
+    </div>
+</body>
+</html>

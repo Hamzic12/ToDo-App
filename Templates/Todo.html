@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/f7bd5fab6d.js" crossorigin="anonymous"></script>
+    <title>Home Page</title>
+    <style type="text/css">
+        body{
+            background-image: linear-gradient(#473E66, #BD83B8,#F5D7DB);
+            height: 100vh;
+            font-family: "Helvetica","sans-serif";
+            
+        }
+        form{
+            height: 100px;
+            width: 60%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+            background-image: linear-gradient( #294D61, SteelBlue ,#294D61);
+            border-style: solid;
+            color: black;
+        } 
+        h1{
+            font-size: 50px;
+            font-weight: bold;
+            text-align: center;
+
+        }
+
+        .add{
+            margin-left: 1%;
+            width: 10%;
+            height: 40%;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            background-image: linear-gradient(180deg, lightgrey, WhiteSmoke, white);
+        }
+        .add:hover{
+            border: 4px solid;
+        }
+        .button{
+            height: 5px;
+            width: 50px;
+            margin-left: 1%;
+            color: #8c35ac;
+        }
+        .input{
+            width: 45%;
+            height: 50%;
+            font-size: 14px;
+            border-radius: 10px;
+        }
+
+        .task-list {
+            list-style-type: none;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            padding: 0;
+        }
+
+        .task-item {
+            width: 600px;
+            display: flex;
+            align-items: center;
+            margin: 1%;
+            padding: 20px;
+            border-radius: 155px;
+            background-color: #f0f0f0;
+        }
+        .text{
+            text-align: center;
+        }
+
+        .buttons {
+            display: flex;
+            flex-grow: 1;
+            justify-content: flex-end;  
+        }
+
+        .todos{
+            font-size: 15px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px 50px;
+        }
+        .logout{
+            color:black;
+            text-decoration: none;
+            font-size: 22px;
+        }
+
+        .logout:hover{
+            text-decoration: underline;
+            color: red;
+            font-weight: bold;
+        }
+    
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{{ url_for('logout')}}" class="logout"> Log out</a>
+    </div>
+
+    
+        <h1> To Do </h1>
+    <div align="center">
+        <form action="{{ url_for('add') }}" method="POST" >
+                
+                {{ form.user_input(class="input") }}
+                {{ form.add(class="add") }}
+
+        </form>
+    </div>
+    <ul class="task-list">
+        {% for task in tasks %}
+            <li class="task-item">
+                <div class="text"> <span {%if task['done'] %} style="text-decoration: line-through" {%endif%}> {{ task['task']}} </span></div>
+                <div class="buttons">
+                    <a href="{{url_for('done', index=loop.index0)}}" class="fa-regular fa-square-check fa-xl button fa-purple" style="text-decoration: none"></a>
+                    <a href="{{url_for('delete', index=loop.index0)}}" class="fa-solid fa-trash fa-xl button" style="text-decoration: none"></a>
+                    <a href="{{url_for('edit', index=loop.index0)}}" class="fa-solid fa-pen-to-square fa-xl button" style="text-decoration: none"></a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
