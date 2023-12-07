@@ -12,7 +12,7 @@
             font-family: "Helvetica","sans-serif";
             
         }
-        form{
+        .form{
             height: 100px;
             width: 60%;
             display: flex;
@@ -45,7 +45,7 @@
         .button{
             height: 5px;
             width: 50px;
-            margin-left: 1%;
+            margin-left: 10%;
             color: #8c35ac;
         }
         .input{
@@ -64,8 +64,9 @@
         }
 
         .task-item {
-            width: 600px;
             display: flex;
+            justify-content: space-between;
+            width: 600px;
             align-items: center;
             margin: 1%;
             padding: 20px;
@@ -79,11 +80,34 @@
         .buttons {
             display: flex;
             flex-grow: 1;
-            justify-content: flex-end;  
+            justify-content: flex-end;
+            margin-top: 5px;
+        }
+
+        .container{
+            display: flex;
+            flex-direction: column;
+        }
+        .selectfield{
+            width:75px;
+            margin-left: 15px;
+            border-radius: 5px;
+        }
+        .save{
+            border-radius: 5px;
+        }
+        
+        .save:hover{
+            border: 2px solid;
+            font-weight: bold;
+        }
+
+        .priority {
+            margin-top: 15px;
         }
 
         .todos{
-            font-size: 15px;
+            font-size: 20px;
         }
 
         .navbar {
@@ -102,7 +126,8 @@
             color: red;
             font-weight: bold;
         }
-    
+
+
     </style>
 </head>
 <body>
@@ -113,7 +138,7 @@
     
         <h1> To Do </h1>
     <div align="center">
-        <form action="{{ url_for('add') }}" method="POST" >
+        <form action="{{ url_for('add') }}" method="POST" class="form">
                 
                 {{ form.user_input(class="input") }}
                 {{ form.add(class="add") }}
@@ -123,12 +148,15 @@
     <ul class="task-list">
         {% for task in tasks %}
             <li class="task-item">
-                <div class="text"> <span {%if task['done'] %} style="text-decoration: line-through" {%endif%}> {{ task['task']}} </span></div>
-                <div class="buttons">
-                    <a href="{{url_for('done', index=loop.index0)}}" class="fa-regular fa-square-check fa-xl button fa-purple" style="text-decoration: none"></a>
-                    <a href="{{url_for('delete', index=loop.index0)}}" class="fa-solid fa-trash fa-xl button" style="text-decoration: none"></a>
-                    <a href="{{url_for('edit', index=loop.index0)}}" class="fa-solid fa-pen-to-square fa-xl button" style="text-decoration: none"></a>
-                </div>
+                <div class="text"> <span {%if task['done'] %} style="text-decoration: line-through" {%endif%} class="todos"> {{ task['task']}} </span></div>
+                    <div class="container">
+                        <div class="buttons">
+                            <a href="{{url_for('done', index=loop.index0)}}" class="fa-regular fa-square-check fa-xl button fa-purple" style="text-decoration: none"></a>
+                            <a href="{{url_for('delete', index=loop.index0)}}" class="fa-solid fa-trash fa-xl button" style="text-decoration: none"></a>
+                            <a href="{{url_for('edit', index=loop.index0)}}" class="fa-solid fa-pen-to-square fa-xl button" style="text-decoration: none"></a>    
+                        </div>
+                        <form action="{{ url_for('priority', index=loop.index0)}}" method="POST" class="priority"> {{ form.priority(class="selectfield")}} {{ form.save(class="save") }} </form>
+                    </div>
             </li>
         {% endfor %}
     </ul>

@@ -33,10 +33,15 @@ def Login():
     login_user = user.find_one({"username": form.username.data})
     if login_user is not None:
         if form.password.data == login_user["password"]:
-            session["curr_user"] = form.username.data
+            if form.checkbox.data is True:
+                session["curr_user"] = form.username.data
+                session.permanent = True
+            else:
+                session["curr_user"] = form.username.data
+                session.permanent = False
             return redirect(url_for("Mainpage"))
         else:
-            flash("Wrong credentials!")
+            flash("Wrong credentials!")  
     return render_template("LogIn.html", form = form) 
     
 @App.route("/signup", methods=["GET", "POST"])
@@ -66,7 +71,7 @@ def Mainpage():
         return redirect(url_for("home"))
     logged_user = user.find_one({"username": session["curr_user"]})
     load_tasks = logged_user["tasks"]
-    return render_template("Todo.html", form = form,  tasks = load_tasks)
+    return render_template("Todo.html", form = form ,  tasks = load_tasks)
 #pages
 
 #buttons
@@ -74,13 +79,14 @@ def Mainpage():
 def add():
     form = TodoForm()
     new_task = form.user_input.data
-    tasks.append({"task": new_task, "done": False})
+    tasks.append({"task": new_task, "done": False, "priority": 0})
     update_db(tasks)
     return redirect(url_for("Mainpage"))
 
 @App.route("/done/<int:index>")
 def done(index):
-    tasks[index]["done"] = not tasks[index]["done"]
+    task = tasks[index]
+    task["done"] = not task["done"]
     update_db(tasks)
     return redirect(url_for("Mainpage"))
 
@@ -101,12 +107,26 @@ def delete(index):
     update_db(tasks)
     return redirect(url_for("Mainpage"))
 
+@App.route("/priority/<int:index>", methods=["GET", "POST"])
+def priority(index):
+    form = TodoForm()
+    task = tasks[index]
+    task["priority"] = form.priority.data
+    sorted_tasks = sorted(tasks, key=lambda x: x["priority"], reverse=True)
+    update_db(sorted_tasks)
+    return redirect(url_for("Mainpage"))
+
 @App.route("/logout")
 def logout():
     if "curr_user" in session:
         flash("You have been successfully logged out")
     session.pop("curr_user")
     return redirect(url_for("home"))
+
+@App.route("/remember")
+def remember():
+    print("remember")
+
 #buttons
 
 
