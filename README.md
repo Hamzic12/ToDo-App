@@ -11,7 +11,7 @@
 - Deleting tasks
 - Editing tasks
 - Setting priority of a task (Color Coordianted)
-    -<span style="color:#FF0000;">5</span>,<span style="color:#FFA500;">4</span>,<span style="color:#FFFF00;">3</span>,<span style="color:#0000FF;">2</span>,<span style="color:#008000;">1</,span>
+    - 5: red, 4: orange, 3: yellow, 2: blue, 1: green
 - Signing up or Loging in 
 - Remember account
 - Changing password (via link in an email)
