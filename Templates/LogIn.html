@@ -12,6 +12,7 @@
         font-family: "Helvetica","sans-serif";
         font-weight: bold;
         }
+        
        form{
         height: 350px;
         width: 450px;
@@ -24,6 +25,7 @@
         border-style: solid;
         color: black;
        } 
+
        legend{
         text-align: center;
         font-size: 30px;
@@ -38,6 +40,7 @@
         flex-direction: column;
         margin: 30px;
         }
+
         .label{
         font-size: large;
         display: flex;
@@ -61,21 +64,27 @@
         width: 140px;
         border-radius: 15px;
         background-image: linear-gradient(180deg, lightgrey, WhiteSmoke, white);
-        margin-top: 5%;
-    }
+        margin-top: 2%;
+        }
+
         .login:hover{
             border: 4px solid;
         }
+
         small{
             color:black;
             font-size: 15px;
-            margin-top: 10px;
+            margin-top: 5px;
             font-style: normal;
         }
 
         .message{
             font-size: 20px;
             color: red;
+        }
+
+        .reset{
+            margin-top: 7px;
         }
     </style>
 </head>
@@ -101,8 +110,15 @@
             {{ form.password(class="input")}}
             
             <small>
-                {{ form.checkbox.label()}}
-                {{ form.checkbox()}}
+                <div>
+                    {{ form.checkbox.label()}}
+                    {{ form.checkbox()}}
+
+                </div>
+                
+                <div class="reset">
+                    Reset <a href="{{url_for('enter_email')}}" style="color: black;">Password</a>?
+                </div>
             </small>
 
             {{ form.submit(class="login")}}

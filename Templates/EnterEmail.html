@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Reset</title>
+    <style type="text/css">
+        body{
+            background-image: linear-gradient(#473E66, #BD83B8,#F5D7DB);
+            height: 100vh;
+            font-family: "Helvetica","sans-serif";
+            font-weight: bold;
+        }
+        form{
+            height: 350px;
+            width: 450px;
+            Position: absolute;
+            top: 50%;
+            left: 50%;
+            transform:  translate(-50%,-50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border-radius: 20px;
+            background-image: linear-gradient(#294D61, SteelBlue);
+            border-style: solid;
+            color: black;
+        }
+
+        h1{
+            margin-top: -18%;
+            margin-bottom: 20%;
+        }
+
+        .input{
+            height: 35px;
+            width: 75%;
+            border-radius: 6px;
+        }
+        .send{
+            margin-top: 8%;
+            width: 27%;
+            height: 14%;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+        .send:hover{
+            border: 3px solid;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    
+    <form method="POST">
+        <h1>Enter your email</h1>
+        {{form.email(class="input")}}
+        {{form.send(class="send")}}
+    </form>
+    
+</body>
+</html>

@@ -71,7 +71,7 @@
             margin: 1%;
             padding: 20px;
             border-radius: 155px;
-            background-color: #f0f0f0;
+            background-color: whitesmoke;
         }
         .text{
             text-align: center;
@@ -148,7 +148,25 @@
     <ul class="task-list">
         {% for task in tasks %}
             <li class="task-item">
-                <div class="text"> <span {%if task['done'] %} style="text-decoration: line-through" {%endif%} class="todos"> {{ task['task']}} </span></div>
+                <div class="text"> 
+                    <span 
+                        {%if task['done'] %}
+                            style="text-decoration:line-through"
+                        {%endif%}
+                        {% if task['priority'] == 5 %}
+                            style="color: red"
+                        {% elif task['priority'] == 4 %}
+                            style="color: orange"
+                        {% elif task['priority'] == 3 %}
+                            style="color: rgba(209, 209, 4, 0.833)"
+                        {% elif task['priority'] == 2 %}
+                            style="color: blue"
+                        {% elif task['priority'] == 1 %}
+                            style="color: lightgreen"
+                        {% endif %} class="todos"> 
+                        {{ task['task']}} 
+                    </span> 
+                </div>
                     <div class="container">
                         <div class="buttons">
                             <a href="{{url_for('done', index=loop.index0)}}" class="fa-regular fa-square-check fa-xl button fa-purple" style="text-decoration: none"></a>
